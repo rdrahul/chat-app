@@ -1,0 +1,15 @@
+.header{
+
+	padding: 10px 30px;
+
+}
+
+.heading {
+    font-size: 200%;
+    font-weight: 100;
+    font-stretch: expanded;
+    margin-left: 20px;
+    margin-top: 60px;
+    color: #4f5761;
+    -webkit-font-smoothing: antialiased;
+}

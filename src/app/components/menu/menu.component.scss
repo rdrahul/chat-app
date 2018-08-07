@@ -1,0 +1,35 @@
+.menu {
+
+	padding: 40px 20px;
+	color: #010102;
+
+	.profile{
+		margin: 0 auto;
+		text-align: center;
+		margin-bottom: 40px;
+		margin-top: 40px;
+
+		.image{
+			height: 60px;
+		}
+
+		.name{
+			font-size: 140%;
+		}
+	}
+
+	.menu-items{
+
+		.items{
+			padding: 5px;
+			list-style: none;
+
+			.item{
+				padding: 20px 2px; 
+			}
+	
+		}
+	
+	}
+
+} 
