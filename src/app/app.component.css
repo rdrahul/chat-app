@@ -2,7 +2,7 @@
 	display: grid;
 	height: 100vh;
 	grid-template-columns: 15% auto;
-	grid-template-rows: 100px auto ;
+	grid-template-rows: 80px auto ;
 }
 
 .item1{
@@ -10,6 +10,7 @@
 	grid-row-start: 1;
 	grid-row-end: 3;
 	height: 100%;
+	position: relative;
 	background: #3F51B5;
 	/* grid-column-end: 1; */
 }
@@ -39,3 +40,4 @@
 .sub-item2{
 	grid-column: 2;
 }
+
