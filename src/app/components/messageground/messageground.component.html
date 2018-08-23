@@ -7,8 +7,51 @@
 		  online
 	  </div>
 	</div>
-	<div class="channels">
-	  channels
+	<div class="window message">
+		<div class="mcontainer">
+				<div class="left reply">
+						<h5 class="name">Rahul dwivedi</h5>
+						<p>This is some body text that i wanted to put here</p>
+					</div>
+		</div>
+		<div class="mcontainer">
+				<div class="right reply">
+						<h5 class="name">me</h5>
+						<p>This is some body text that i wanted to put here</p>
+					</div>
+		</div>
+
+		<div class="mcontainer">
+				<div class="left reply">
+						<h5 class="name">Rahul dwivedi</h5>
+						<p>Please</p>
+					</div>
+		</div>
+		
+		<div class="mcontainer">
+				<div class="left reply">
+						<h5 class="name">Rahul dwivedi</h5>
+						<p>ok i will be heree </p>
+					</div>
+		</div>
+
+		<div class="chatbox">
+				
+				
+		</div>
+		
+	</div>
+
+	<div class="input-div message" [formGroup]="messageInput">
+		<!-- <textarea name="mytext" id="message" formControlName="message" >Some message</textarea>
+		<button  (click)="sendMessage()" >submit</button> -->
+		<div class="sendBox">
+			<textarea placeholder="Enter some message..."></textarea>				 
+		</div>
+		<button class="send-button" (click)="sendMessage()" >
+			<i class="ic-send" ></i>
+		</button>
+			
 	</div>
 </div>
   

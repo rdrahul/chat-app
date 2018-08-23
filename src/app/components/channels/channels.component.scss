@@ -32,6 +32,11 @@
 .channels{
 	
 	overflow-y: auto;
+	padding: 10px;
+    height: 570px;
+    width: 100%;
+    
+    overflow-y: scroll;
 	
 	.channel {
 		padding: 15px;
@@ -41,6 +46,7 @@
 		background-color: white;
 		box-shadow: 0 0px 2px rgba(0, 0, 0, 0.09), 0 1px 16px rgba(0,0,0,0.19);
 		position: relative;
+		cursor: pointer;
 
 
 		.row{
