@@ -1,6 +1,7 @@
 .header{
 
-	padding: 10px 30px;
+    padding: 10px 30px;
+    padding-top: 20px;
 
 }
 
@@ -8,8 +9,7 @@
     font-size: 200%;
     font-weight: 100;
     font-stretch: expanded;
-    margin-left: 20px;
-    margin-top: 40px;
+    margin: 10px 20px;
     color: #4f5761;
     -webkit-font-smoothing: antialiased;
 }

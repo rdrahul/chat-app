@@ -31,6 +31,7 @@
 .grid-container2 {
 	display: grid;
 	grid-template-columns: 40% auto;
+	height: 100%;
 }
 
 .sub-item1{
