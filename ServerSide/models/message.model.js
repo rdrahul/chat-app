@@ -4,7 +4,12 @@ const
 
 let MessageSchema = new Schema({
     
-    by : {
+    from : {
+		type : Schema.Types.ObjectId ,
+		ref :'User',
+        required : true
+	},
+	for : {
 		type : Schema.Types.ObjectId ,
 		ref :'User',
         required : true
@@ -25,6 +30,11 @@ let MessageSchema = new Schema({
 	deleted : {
 		type : Boolean,
 		default : false
+	},
+	status : {
+		type:string,
+		enum : ['read' , 'sent' , 'delivered' ,'pending' , 'seen'],
+		default : 'sent'
 	}
 
 });
