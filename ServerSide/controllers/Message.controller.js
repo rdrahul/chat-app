@@ -1,8 +1,7 @@
 const 
-	MessageModel = require('../models/message.model'),
+	Message = require('../models/message.model'),
 	UtilityService = require('../utilities/utils');
-
- ;
+	
 
 const MessageController = {
 	getMessage : getMessage,
@@ -20,10 +19,10 @@ const MessageController = {
 let getAllMessages = function(req, res){
 
 	let userId = req.user;
-	let chatUserId = ParseFromBody()["chatuser"];
+	let chatUserId = ParseFromBody(req , )["chatuser"];
 
 	//find the messages that were sent by the user or were received from the other user
-	MessageModel.find().or( 
+	Message.find().or( 
 		[
 			{ from : userId , for : chatUserId } , 
 			{ from: chatUserId , for : userId }
@@ -37,14 +36,6 @@ let getAllMessages = function(req, res){
 
 };
 
-/**
- * Gets a Message 
- * @param {Object} req the request Object
- * @param {Object} res the response Object 
- */
-let getMessage = function(req, res){
-
-};
 
 /**
  * Creates a new Message
@@ -56,19 +47,28 @@ let postMessage = function(req, res){
 	let userId = req.user;
 
 	let messageFrom = req.body["from"];
-	let messageBy = req.body["message"];
+	let message = req.body["message"];
 	let links = req.body["links"] || [];
 	let images =req.body["images"] || [];
 
-
-	//run validations
-	UtilityService.validate( UtilityService.Types.String  , messageFrom );
-
 	//create object
+	let newMessage = new Message({
+		from : messageFrom,
+		for :  userId , 
+		message : message , 
+		links : links,
+		images : images,
+	});
 
-	//insert in db
-
-
+	//insert in db	
+	Message.create( newMessage )
+		.then( msg => {
+			return 
+				req.status(201).json( msg );
+		})
+		.catch( err => {
+			return res.status(500).json(err);
+		});
 
 
 };
@@ -78,9 +78,18 @@ let postMessage = function(req, res){
  * @param {Object} req the request Object
  * @param {Object} res the response Object 
  */
-let putMessage = function(req, res){};
+let putMessage = function(req, res){
+	let userId = req.user;
 
+	let messageId = req.body['messageId'];
 
+	Message.findByIdAndUpdate(messageId , req.body )
+		.then( message => {
+			return UtilityService.successResponse("Updated Successfully")
+			
+		})
+		.catch( err =>  { return Response.errorMessage(err , res ); } );
+};
 
 
 module.exports = MessageController;
