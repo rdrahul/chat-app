@@ -2,10 +2,12 @@
 
 const
     express = require('express'),
-    router = express.Router();
+    router = express.Router() ,
+    UserController = require('../controllers/User.controller');
 
 
 
+router.get('/users' ,UserController.getUsers );
 
 module.exports = function(app ) {
 

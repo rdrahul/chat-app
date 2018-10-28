@@ -13,13 +13,14 @@ const
 module.exports = (app, io) => {
     app.use(cors());
 
-    let db = mongoose.connection;
-    db.on('error', () => {
-        throw new Error("Unable to connect to database");
-    });
-    db.on('connection', () => {
-        console.log("Connection to database successfull");
-    });
+    let mongooseOptions = {
+        useNewUrlParse : true
+    }
+    mongoose.connect('mongodb://localhost:27017/chat' , mongooseOptions)
+        .then(  
+            () => console.log("Connected to database.") ,
+            (err) => console.error("Can't connect to database.")
+        );
 
 	// Globbing through the routes
 	let rootPath  = path.normalize( __dirname + '/..' );

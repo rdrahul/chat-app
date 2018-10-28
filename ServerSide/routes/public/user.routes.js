@@ -2,10 +2,12 @@
 
 const
     express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    UserController = require('../../controllers/User.controller');
 
 
-
+router.post( '/register' ,   UserController.createUser  );
+router.post('/login', UserController.login  );
 
 module.exports = function(app ) {
 

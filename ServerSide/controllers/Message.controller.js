@@ -88,7 +88,9 @@ let putMessage = function(req, res){
 			return UtilityService.successResponse("Updated Successfully")
 			
 		})
-		.catch( err =>  { return Response.errorMessage(err , res ); } );
+		.catch( err =>  { 
+			return Response.errorMessage(err , res ); 
+		} );
 };
 
 

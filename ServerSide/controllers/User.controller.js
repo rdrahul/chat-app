@@ -1,6 +1,7 @@
 const 
 	User = require('../models/user.model'),
-	jwtTokenService = require('../utilities/jwttoken.service');
+	jwtTokenService = require('../utilities/jwttoken.service'),
+	UserService = require( '../services/user.service' );
 
 /**
  * Gets All the users 
@@ -22,19 +23,33 @@ let GetUsers = (req, res) => {
  * @param {Object} req The request object
  * @param {Object} res The response object 
  */
-let CreateUser = ( req , res ) =>{
-	let name = req.body["name"];
-	let email = req.body["email"];
-	let password = req.body["password"];
+let CreateUser = async function( req , res ) {
+	try{
+		let firstname = req.body["firstname"];
+		let lastname = req.body["lastname"] ;
+		let email = req.body["email"]  ;
+		let password = req.body["password"];
+
+		//run validations
+
+		//check if userExists
+		let existingUser  = await UserService.GetIfUserExists( email );
+		console.log( existingUser);
+		if (existingUser)
+			return res.status(400).json({error :"user exists"});
 
 	
-	let user = new User( { name : name , email : email  , password : password  });
+		let user = new User( { firstname : firstname , email : email  , password : password  , lastname : lastname });
+		
+		let savedUser  = await user.save();
+		return res.status(201).json({"message" : "Successfully registered the user"  });
+
+
+	}catch(err){
+		console.log(err);
+		return res.status(500).json({error : err.toString()});
+	}
 	
-	user.save((err , newUser )=>{
-		if (err)
-		return res.status(500).json(err);
-		return res.status(201).json(newUser);
-	});
 
 }  
 
@@ -52,9 +67,9 @@ let UserLogin = (req, res) => {
     User.findOne({ email: userDetails.email }, (err, user) => {
 
 		//in case db crashes or some other server error.
-		if (err)
-			return res.status(500).json(err);
-		
+		if (err){
+			return res.status(500).json(err.toString());
+		}
 		//if there is no such user
         if (!user) return res.status(404).json({message : "User not found"});
 		
@@ -72,9 +87,10 @@ let UserLogin = (req, res) => {
 				});
 
 				
-				res.json({ user: user, token: token });
+				res.json({ user: user._id, token: token });
 
 			} catch (error) {
+				console.log(error);
 				return res.status(500).json({error : error});
 			}
 		} else {
@@ -84,6 +100,8 @@ let UserLogin = (req, res) => {
     
     });
 };
+
+let CheckIfUserExists
 
 
 
