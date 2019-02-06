@@ -7,7 +7,7 @@ const
 
 
 
-router.get('/users' ,UserController.getUsers );
+router.get('/all' ,UserController.getUsers );
 
 module.exports = function(app ) {
 

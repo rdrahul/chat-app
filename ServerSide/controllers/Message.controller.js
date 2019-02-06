@@ -2,15 +2,6 @@ const
 	Message = require('../models/message.model'),
 	UtilityService = require('../utilities/utils');
 	
-
-const MessageController = {
-	getMessage : getMessage,
-	postMessage : postMessage,
-	putMessage : putMessage,
-	getAllMessages : getAllMessages
-};
-
-
 /**
  * Gets all the messages of a user sent by the reciever 
  * @param {Object} req the request Object
@@ -18,20 +9,26 @@ const MessageController = {
  */
 let getAllMessages = function(req, res){
 
-	let userId = req.user;
-	let chatUserId = ParseFromBody(req , )["chatuser"];
+	let userId = req.user.user_id;
+	let chatUserId = req.params.chatId;
 
+	let page = req.query.page || 0;
+	let limit = 100;
+	let skip = page * limit ;
+	console.log(limit);
 	//find the messages that were sent by the user or were received from the other user
-	Message.find().or( 
-		[
-			{ from : userId , for : chatUserId } , 
-			{ from: chatUserId , for : userId }
-		])
+	Message	
+		.find( {  $or : [
+				{ from : userId , for : chatUserId } , 
+				{ from: chatUserId , for : userId }
+			]})
+		.skip(skip)
+		.limit(limit)
 		.then( ( response ) =>{
 			return res.status(200).json(response);
-		})
+		})	
 		.catch( (err) => {
-			UtilityService.error(500 , res , err);
+			UtilityService.errorResponse(500 , res , err);
 		});
 
 };
@@ -44,17 +41,18 @@ let getAllMessages = function(req, res){
  */
 let postMessage = function(req, res){
 
-	let userId = req.user;
+	let userId = req.user.user_id;
+	
 
-	let messageFrom = req.body["from"];
+	let messageFor = req.body["for"];
 	let message = req.body["message"];
 	let links = req.body["links"] || [];
 	let images =req.body["images"] || [];
 
 	//create object
 	let newMessage = new Message({
-		from : messageFrom,
-		for :  userId , 
+		from : userId,
+		for :  messageFor , 
 		message : message , 
 		links : links,
 		images : images,
@@ -63,10 +61,10 @@ let postMessage = function(req, res){
 	//insert in db	
 	Message.create( newMessage )
 		.then( msg => {
-			return 
-				req.status(201).json( msg );
+			return res.status(201).json( msg );
 		})
 		.catch( err => {
+			console.error(err);
 			return res.status(500).json(err);
 		});
 
@@ -91,6 +89,14 @@ let putMessage = function(req, res){
 		.catch( err =>  { 
 			return Response.errorMessage(err , res ); 
 		} );
+};
+
+
+const MessageController = {
+	//getMessage : getMessage,
+	postMessage : postMessage,
+	putMessage : putMessage,
+	getAllMessages : getAllMessages
 };
 
 

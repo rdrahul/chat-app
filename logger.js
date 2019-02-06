@@ -1,7 +1,7 @@
 const winston = require('winston');
 const moment  = require('moment');
 
-const 
+let 
 	genericLogger = null,
     dbLogger = null,
 	loginLogger   = null,
@@ -12,14 +12,14 @@ function initLogger() {
 	
 	console.log('logger.js > initLogger');
     
-    genericLogger = new (winston.Logger)({
+    genericLogger = winston.createLogger({
         transports: [
           new (winston.transports.Console)(),
           new (winston.transports.File)({ filename: __dirname+'/log/error.log' })
         ]
     });
 
-    dbLogger = new (winston.Logger)({
+    dbLogger =  winston.createLogger({
         transports: [
           //new (winston.transports.Console)(),
           new (winston.transports.File)({ filename: __dirname+'/log/db.log' })
@@ -28,14 +28,14 @@ function initLogger() {
 
 
 
-    networkLogger = new (winston.Logger)({
+    networkLogger =  winston.createLogger({
         transports: [
           new (winston.transports.Console)(),
           new (winston.transports.File)({ filename: __dirname+'/log/network.log' })
         ]
     });
 
-    loginLogger = new (winston.Logger)({
+    loginLogger =  winston.createLogger({
         transports: [
           new (winston.transports.Console)(),
           new (winston.transports.File)({ filename: __dirname+'/log/login.log' })

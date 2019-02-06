@@ -7,6 +7,7 @@ import { ChannelsComponent } from './components/channels/channels.component';
 import { MessagegroundComponent } from './components/messageground/messageground.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from "@angular/forms";
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

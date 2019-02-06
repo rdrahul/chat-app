@@ -10,11 +10,16 @@ const
  */
 let GetUsers = (req, res) => {
 
-	User.find( {} , ( err , users ) => {
-		if ( err )
+	User.find( {}).
+		select('firstname email').
+		then( ( users ) => {
+
+			return res.status( 200 ).json( { users : users }); 
+		}).catch( err => {
 			return res.status( 500 ).json( err );
-		return res.status( 200 ).json( { users : users }); 
-	});
+		});
+
+
 	
 }
 

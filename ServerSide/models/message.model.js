@@ -1,6 +1,7 @@
 const
     mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	mongoosePaginate = require('mongoose-paginate');
 
 let MessageSchema = new Schema({
     
@@ -15,7 +16,8 @@ let MessageSchema = new Schema({
         required : true
 	},
 	message : {
-		type: string
+		type: String,
+		required : true
 	},
     links : [{
         ref: String
@@ -32,13 +34,13 @@ let MessageSchema = new Schema({
 		default : false
 	},
 	status : {
-		type:string,
+		type:String,
 		enum : ['read' , 'sent' , 'delivered' ,'pending' , 'seen'],
 		default : 'sent'
 	}
 
 });
 
-
+// MessageSchema.plugin( mongoosePaginate );
 
 module.exports = mongoose.model('Message', MessageSchema);

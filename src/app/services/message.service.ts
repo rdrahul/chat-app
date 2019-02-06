@@ -27,5 +27,9 @@ export class MessageService {
 
   }
 
+  GetAllMessages( id ){
+    //let url = 
+  }
+
 
 }
